@@ -1,0 +1,44 @@
+{
+	"info": {
+		"_postman_id": "896c3e83-a21b-4e17-a068-4d11d0bbaa6a",
+		"name": "speech-to-text",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "sendFile",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "speech-to-text",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "",
+							"type": "file",
+							"src": "/home/caspin/Desktop/englishTest.mp3"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5000/speech-to-text",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"speech-to-text"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
