@@ -4,13 +4,20 @@ const {
 
 const {
     speechToText
-} = require('./src/routes/index');
+} = require('./src/utilities/speechToText');
+
+const {
+    convertMp3ToWav
+} = require('./src/utilities/convertMp3ToWav');
 
 const fastify = require('fastify')();
+const fileUpload = require('fastify-file-upload');
+fastify.register(fileUpload)
 
 
 // Create an endpoint to convert speech to text.
 fastify.post('/speech-to-text', async (request, reply) => {
+    // Validate x-api-key from headers
     const xApiKey = request.headers["x-api-key"]
     if (xApiKey !== config.xApiKey) {
         reply.statusCode = 401
@@ -22,10 +29,11 @@ fastify.post('/speech-to-text', async (request, reply) => {
         })
         return
     }
-    
-    const { audioFile } = await request.file();
-    const text = await speechToText(audioFile);
-    reply.send({ text });
+
+    const files = request.raw.files;
+    const audioFile = await convertMp3ToWav(files.audio.toString());
+    const wordToSearch = request.body.search-word;
+    const text = await speechToText(audioFile, wordToSearch);
 
     if (text.code === 200) {
         console.log("Transcription success")
@@ -49,7 +57,7 @@ fastify.post('/speech-to-text', async (request, reply) => {
 
 const start = async () => {
     try {
-        await fastify.listen(config.httpPort, config.host)
+        await fastify.listen({port: config.httpPort, host: config.host})
         fastify.log.info(`server listening on ${fastify.server.address().port}`)
         console.log(`server listening on ${fastify.server.address().port}`)
     } catch (err) {
