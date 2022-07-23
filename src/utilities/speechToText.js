@@ -44,10 +44,11 @@ async function speechToText(audioFile, wordToSearch) {
 
         return ({
             code: 200,
-            result: transcription,
+            transcription: transcription,
             words: amountOfWords,
-            wordFound: {
-                word: wordToFound.wordFounded,
+            wordToFound: {
+                word: wordToSearch,
+                contains: wordToFound.wordFounded,
                 repetitions: wordToFound.amountOfRepetition
             }
         })
@@ -70,8 +71,18 @@ async function searchWord(transcription, wordToSearch) {
     // Searches for a word in the transcription and return the amount of times it was found
     const words = transcription.split(' ');
     const wordFounded = words.includes(wordToSearch);
-    const amountOfRepetition = transcription.match((/wordToSearch/gi).length);
-    return {wordFounded, amountOfRepetition};
+    if (wordFounded) {
+        const amountOfRepetition = words.filter(word => word === wordToSearch).length;
+        return {
+            wordFounded: true,
+            amountOfRepetition: amountOfRepetition
+        }
+    } else {
+        return {
+            wordFounded: false,
+            amountOfRepetition: 0
+        }
+    }
 }
 
 

@@ -20,9 +20,14 @@
 					"mode": "formdata",
 					"formdata": [
 						{
-							"key": "",
+							"key": "audio",
 							"type": "file",
 							"src": "/home/caspin/Desktop/englishTest.mp3"
+						},
+						{
+							"key": "searchWord",
+							"value": "Hi",
+							"type": "text"
 						}
 					]
 				},

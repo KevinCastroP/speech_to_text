@@ -31,9 +31,11 @@ fastify.post('/speech-to-text', async (request, reply) => {
     }
 
     const files = request.raw.files;
-    const audioFile = await convertMp3ToWav(files.audio.toString());
-    const wordToSearch = request.body.search-word;
-    const text = await speechToText(audioFile, wordToSearch);
+    // TODO: convert MP3 to WAV
+    // const audioFile = await convertMp3ToWav(files.audio.toString());
+    const wordToSearch = request.body.searchWord;
+    // const text = await speechToText(audioFile, wordToSearch);
+    const text = await speechToText(files.audio, wordToSearch);
 
     if (text.code === 200) {
         console.log("Transcription success")
