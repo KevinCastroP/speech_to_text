@@ -38,12 +38,12 @@ fastify.post('/speech-to-text', async (request, reply) => {
     const fileNameWav = originalName.replace(`.${fileExt}`, '.wav');
 
     if (fileExt != 'mp3') {
-        reply.statusCode = 400
-        console.log("It's not possible to generate a transcription");
+        reply.statusCode = 415
+        console.log("The file must be mp3");
         reply.send({
             data: null,
             success: false,
-            message: "It's not possible to generate a transcription to file"
+            message: "The file must be mp3"
         })
         return;
     }
