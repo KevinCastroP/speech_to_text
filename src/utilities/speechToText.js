@@ -6,11 +6,11 @@ const fs = require('fs');
 const client = new speech.SpeechClient();
 
 
-async function speechToText(audioFile, wordToSearch) {
+async function speechToText(audioFilePath, wordToSearch) {
     try {
         // The audio file's encoding, sample rate in hertz, and BCP-47 language code
         const audio = {
-            content: fs.readFileSync('audios/wav/test.wav').toString('base64'),
+            content: fs.readFileSync(`${audioFilePath}`).toString('base64'),
         };
 
         const recognitionMetadata = {

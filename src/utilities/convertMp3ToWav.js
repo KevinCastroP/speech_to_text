@@ -2,24 +2,34 @@ const Mp32Wav = require('mp3-to-wav')
 fs = require('fs')
 
 
-async function convertMp3ToWav(fileToConvert) {
+async function convertMp3ToWav(fileName, content) {
     // Convert MP3 file to WAV format
-    try {
-        const Mp3FilePath = 'audios/mp3/test1.mp3'
+    return new Promise((resolve, reject) => {
+        try {
+            const Mp3FilePath = `audios/mp3/${fileName}`
 
-        fs.writeFile(Mp3FilePath, fileToConvert, function (err) {
-            if (err) return console.log(err)
-            console.log('MP3 file saved.')
-        })
+            fs.writeFileSync(Mp3FilePath, content, function (err) {
+                if (err) return console.log(err)
+                console.log('MP3 file saved.')
+            })
 
-        const audioFile = new Mp32Wav(Mp3FilePath, 'audios/wav/test.wav')
+            const audioFile = new Mp32Wav(Mp3FilePath, 'audios/wav/').exec();
 
-        console.log('WAV file created.')
-        return audioFile
-    } catch (error) {
-        console.log(error)
-        return null
-    }
+
+            audioFile.then((result) => {
+                console.log('WAV file created.', result)
+                resolve({
+                    path: 'audios/wav/'
+                })
+            }).catch((err) => {
+                console.log('WAV file error.', err)
+                reject(err)
+            })
+
+        } catch (error) {
+            reject(error);
+        }
+    })
 }
 
 
