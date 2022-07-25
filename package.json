@@ -1,0 +1,30 @@
+{
+  "name": "speech_to_text",
+  "version": "1.0.0",
+  "description": "Speech to text APi",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KevinCastroP/speech_to_text.git"
+  },
+  "author": "Kevin Castro",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KevinCastroP/speech_to_text/issues"
+  },
+  "homepage": "https://github.com/KevinCastroP/speech_to_text#readme",
+  "dependencies": {
+    "@google-cloud/speech": "^4.10.2",
+    "dotenv": "^16.0.1",
+    "fastify": "^4.2.1",
+    "fastify-file-upload": "^4.0.0",
+    "google-speech-api": "^0.5.0",
+    "mp3-to-wav": "^0.1.11",
+    "nodemon": "^2.0.19"
+  }
+}
